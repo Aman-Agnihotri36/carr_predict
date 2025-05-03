@@ -37,15 +37,13 @@ class PredictionConfig:
 
 class PredictionConfig:
     def __init__(self):
-        base_dir = os.path.dirname(__file__)  # directory of current file
-        
-        # Use relative paths
-        self.data_path = os.path.join(base_dir, '..', 'artifacts', 'ingestion', 'raw_data', 'roo_data.csv')
-        self.model_path = os.path.join(base_dir, '..', 'artifacts', 'training', 'model', 'job_prediction_model.pkl')
-        
-        # Convert to absolute paths for safety
-        self.data_path = os.path.abspath(self.data_path)
-        self.model_path = os.path.abspath(self.model_path)
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # gets /opt/render/project/src/jobprediction
+        self.model_path = os.path.join(base_dir, 'artifacts', 'training', 'model', 'job_prediction_model.pkl')
+        self.data_path = os.path.join(base_dir, 'artifacts', 'ingestion', 'raw_data', 'roo_data.csv')
+
+        # Optional: print to confirm
+        print("Model Path:", self.model_path)
+        print("Data Path:", self.data_path)
         
 class ConfigurationManager:
     def PredictionManager(self):
