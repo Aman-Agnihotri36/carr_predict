@@ -37,25 +37,30 @@ class PredictionConfig:
 
 class PredictionConfig:
     def __init__(self):
-        # Get the directory of the current script
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        # Navigate up to remove the extra 'src' (adjust based on actual structure)
-        base_dir = os.path.dirname(os.path.dirname(script_dir))  # Go up two levels
-        print("Script Directory:", script_dir)  # Debug
-        print("Base Directory:", base_dir)  # Debug
-        print("Files in Base Directory:", os.listdir(base_dir))  # Debug
+        # Detect if running on Render
+        if os.getenv('RENDER'):
+            base_dir = '/opt/render/project/src'
+        else:
+            # Fallback for local development
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            base_dir = os.path.dirname(script_dir)  # Adjust if needed
 
-        # Construct paths using environment variables or corrected base_dir
+        # Debug: Log directory and environment details
+        print("Base Directory:", base_dir)
+        print("Files in Base Directory:", os.listdir(base_dir))
+        print("Current Working Directory:", os.getcwd())
+
+        # Construct paths (updated to match repository structure)
         self.model_path = os.getenv(
             'MODEL_PATH',
-            os.path.join(base_dir, 'jobprediction', 'entity', 'artifacts', 'training', 'model', 'job_prediction_model.pkl')
+            os.path.join(base_dir, 'artifacts', 'training', 'model', 'job_prediction_model.pkl')
         )
         self.data_path = os.getenv(
             'DATA_PATH',
-            os.path.join(base_dir, 'jobprediction', 'entity', 'artifacts', 'ingestion', 'raw_data', 'roo_data.csv')
+            os.path.join(base_dir, 'artifacts', 'ingestion', 'raw_data', 'raw_data.csv')
         )
 
-        # Debug paths and directory contents
+        # Debug: Log paths and directory contents
         model_dir = os.path.dirname(self.model_path)
         print("Model Path:", self.model_path)
         print("Model Directory Exists:", os.path.exists(model_dir))
