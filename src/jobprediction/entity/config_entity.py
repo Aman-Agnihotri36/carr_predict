@@ -43,29 +43,32 @@ class PredictionConfig:
         else:
             # Fallback for local development
             script_dir = os.path.dirname(os.path.abspath(__file__))
-            base_dir = os.path.dirname(script_dir)  # Adjust if needed
+            base_dir = os.path.dirname(script_dir)
 
         # Debug: Log directory and environment details
         print("Base Directory:", base_dir)
         print("Files in Base Directory:", os.listdir(base_dir))
         print("Current Working Directory:", os.getcwd())
 
-        # Construct paths (updated to match repository structure)
+        # Construct paths (updated to match the actual file name)
         self.model_path = os.getenv(
             'MODEL_PATH',
             os.path.join(base_dir, 'artifacts', 'training', 'model', 'job_prediction_model.pkl')
         )
         self.data_path = os.getenv(
             'DATA_PATH',
-            os.path.join(base_dir, 'artifacts', 'ingestion', 'raw_data', 'raw_data.csv')
+            os.path.join(base_dir, 'artifacts', 'ingestion', 'raw_data', 'roo_data.csv')  # Changed to roo_data.csv
         )
 
         # Debug: Log paths and directory contents
         model_dir = os.path.dirname(self.model_path)
+        data_dir = os.path.dirname(self.data_path)
         print("Model Path:", self.model_path)
         print("Model Directory Exists:", os.path.exists(model_dir))
         print("Files in Model Directory:", os.listdir(model_dir) if os.path.exists(model_dir) else "Model directory does not exist")
         print("Data Path:", self.data_path)
+        print("Data Directory Exists:", os.path.exists(data_dir))
+        print("Files in Data Directory:", os.listdir(data_dir) if os.path.exists(data_dir) else "Data directory does not exist")
 
         # Check file existence
         if not os.path.exists(self.model_path):
