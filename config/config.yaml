@@ -1,0 +1,35 @@
+root: artifacts
+
+data_ingestion:
+
+  root: artifacts/ingestion
+  raw_data_dir: artifacts/ingestion/raw_data
+  link: https://drive.google.com/file/d/1INqa-gNb2pv9UzQ8-PZAOYEPaVEEQjJC/view?usp=sharing
+  raw_data_name: roo_data.csv
+
+data_transformation:
+
+  root: artifacts/transformation
+  processed_data_dir: artifacts/transformation/processed
+  raw_data_path: artifacts/ingestion/raw_data/roo_data.csv
+  processed_data_name: processed_data.csv
+
+model_training:
+
+  root: artifacts/training
+  model_dir: artifacts/training/model
+  processed_data_path: artifacts/transformation/processed/processed_data.csv
+  model_path: artifacts/training/model/job_prediction_model.pkl
+  encoder_path: artifacts/training/model/label_encoder.pkl
+  scaler_path: artifacts/training/model/scaler.pkl
+  report_path: artifacts/evaluation/report.json
+
+prediction:
+
+  model_path: artifacts/training/model/job_prediction_model.pkl
+  encoder_path: artifacts/training/model/label_encoder.pkl
+  scaler_path: artifacts/training/model/scaler.pkl
+
+
+
+
