@@ -8,3 +8,4 @@ imbalanced-learn
 Flask
 gunicorn
 flask_cors
+python-dotenv
