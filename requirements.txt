@@ -1,3 +1,16 @@
+# numpy
+# pandas
+# matplotlib
+# seaborn
+# scikit-learn
+# scipy
+# imbalanced-learn
+# Flask
+# gunicorn
+# flask_cors
+# python-dotenv
+
+
 numpy
 pandas
 matplotlib
@@ -7,5 +20,9 @@ scipy
 imbalanced-learn
 Flask
 gunicorn
-flask_cors
+flask-cors
 python-dotenv
+langchain==0.3.25
+langchain-community
+langchain-groq
+langchain-core
