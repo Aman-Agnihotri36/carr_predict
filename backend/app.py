@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from src.jobfinderai.agent import run_agent
 from src.jobfinderai.fetch_job import fetch_jobs
+from src.jobdescriptionator.prompt_builder import get_explanation
+from src.jobdescriptionator.profile_formatter import format_profile
 
 app = Flask(__name__)
 
@@ -49,6 +51,32 @@ def fetch_jobs(role: str) -> dict:
     google_search_url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
     
     return {"Google_Link": google_search_url}
+
+@app.route("/get_description", methods=["POST"])
+def job_description():
+    data = request.json
+    user_role = data.get("role")
+    user_data = data.get("data")
+
+    if not user_role:
+        return jsonify({"error": "No input provided"}), 400
+
+    try:
+        prediction_result = description(user_role, user_data)
+        return jsonify({"prediction": prediction_result})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+def description(predicted_role, profile_raw):
+    profile = format_profile(profile_raw)
+
+    predicted_role = predicted_role
+    explanation = get_explanation(profile, predicted_role)
+    
+    print(explanation)
+    return explanation
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
