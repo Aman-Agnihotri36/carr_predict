@@ -11,3 +11,6 @@ def fetch_jobs(role: str) -> dict:
     google_search_url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
     
     return {"Google Search Link": google_search_url}
+
+# Correct call using .invoke()
+print(fetch_jobs.invoke('Web Developer'))

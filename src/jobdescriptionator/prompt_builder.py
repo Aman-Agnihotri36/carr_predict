@@ -13,14 +13,18 @@ llm = ChatGroq(temperature=0.7, model_name="llama3-8b-8192")
 
 def build_prompt(profile: dict, predicted_role: str) -> str:
     return f"""
+
+
 A student has the following profile:
-{profile} and you are a experienced professional in that profile. Your response should be like an ai directly speaking to the student
+{profile}
+
+You are an experienced professional in that profile. Your response should be like an AI directly speaking to the student.
 
 The predicted job role is: "{predicted_role}".
 
-1. Explain why this job role was predicted.
-2. What can the student do to improve their fit for this role?
+Please return your response strictly in the following JSON array format (no extra text):
 """
+
 
 def get_explanation(profile: dict, predicted_role: str) -> str:
     messages = [
